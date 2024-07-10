@@ -24,6 +24,14 @@ export const getHandler = ({ bucket, collection, getStorageClient }: Args): Stat
         Key: path.posix.join(prefix, req.params.filename),
       })
 
+      req.on('close', () => console.log('req close'));
+      req.on('error', () => console.log('req error'));
+      req.on('end', () => console.log('req end'));
+
+      res.on('close', () => console.log('res close'));
+      res.on('error', () => console.log('res error'));
+      res.on('end', () => console.log('res end'));
+
       res.set({
         'Accept-Ranges': object.AcceptRanges,
         'Content-Length': object.ContentLength,
